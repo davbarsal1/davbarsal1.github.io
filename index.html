@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestro Aniversario</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<main class="app">
+    <section id="start-screen" class="card">
+        <h1>💖 Concurso de nuestro aniversario 💖</h1>
+        <p>
+            Hoy tienes una misión muy importante: demostrar cuánto recuerdas
+            de nuestra historia.
+        </p>
+        <button onclick="startGame()">Empezar</button>
+    </section>
+
+    <section id="quiz-screen" class="card hidden">
+        <div class="progress">
+            <span id="question-counter"></span>
+            <span id="score">❤️ 0</span>
+        </div>
+
+        <h2 id="question-title"></h2>
+
+        <div id="answers" class="answers"></div>
+
+        <p id="feedback" class="feedback"></p>
+    </section>
+
+    <section id="final-screen" class="card hidden">
+        <h1>🎉 Has llegado al final 🎉</h1>
+        <p id="final-message"></p>
+
+        <div class="photo-placeholder">
+            Aquí puedes poner una foto vuestra
+        </div>
+
+        <button onclick="restartGame()">Volver a jugar</button>
+    </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
