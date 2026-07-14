@@ -8,7 +8,7 @@ const questions = [
       "Tomando algo"
     ],
     correct: 0,
-    hint: "Piénsalo bien... fue un plan muy nuestro."
+    hint: "Un restaurante donde puedes plantar un..."
   },
   {
     question: "¿Cuál es mi comida favorita?",
