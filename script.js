@@ -63,7 +63,9 @@ const questions = [
 ];
 
 const apartmentPhotos = [
-  "apartamento1.jpg"
+  "apartamento1.jpg",
+  "apartamento2.jpg",
+  "apartamento3.jpg"
 ];
 
 let currentQuestion = 0;
@@ -113,6 +115,7 @@ function showQuestion() {
 
   question.answers.forEach((answer, index) => {
     const button = document.createElement("button");
+
     button.className = "answer-btn";
     button.textContent = answer;
     button.onclick = () => checkAnswer(index);
@@ -154,8 +157,6 @@ function disableAnswerButtons() {
 
   buttons.forEach((button) => {
     button.disabled = true;
-    button.style.opacity = "0.7";
-    button.style.cursor = "default";
   });
 }
 
