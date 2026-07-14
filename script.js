@@ -63,7 +63,7 @@ const questions = [
 ];
 
 const apartmentPhotos = [
-  "assets/apartamento1.jpg"
+  "apartamento1.jpg"
 ];
 
 let currentQuestion = 0;
