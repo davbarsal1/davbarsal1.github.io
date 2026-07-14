@@ -63,9 +63,7 @@ const questions = [
 ];
 
 const apartmentPhotos = [
-  "apartamento1.jpg",
-  "apartamento2.jpg",
-  "apartamento3.jpg"
+  "assets/apartamento1.jpg"
 ];
 
 let currentQuestion = 0;
@@ -90,15 +88,24 @@ const loadingText = document.getElementById("loading-text");
 const loveSong = document.getElementById("love-song");
 
 function startGame() {
+  currentQuestion = 0;
+  score = 0;
+  photoIndex = 0;
+
   startScreen.classList.add("hidden");
+  finalScreen.classList.add("hidden");
+  revealScreen.classList.add("hidden");
+  searchScreen.classList.add("hidden");
+
   quizScreen.classList.remove("hidden");
+
   showQuestion();
 }
 
 function showQuestion() {
   const question = questions[currentQuestion];
 
-  questionCounter.textContent = `Pregunta ${currentQuestion + 1}/${questions.length + 1}`;
+  questionCounter.textContent = `Pregunta ${currentQuestion + 1}/7`;
   scoreElement.textContent = `❤️ ${score}`;
   questionTitle.textContent = question.question;
   feedback.textContent = "";
@@ -109,6 +116,7 @@ function showQuestion() {
     button.className = "answer-btn";
     button.textContent = answer;
     button.onclick = () => checkAnswer(index);
+
     answersContainer.appendChild(button);
   });
 }
@@ -118,7 +126,10 @@ function checkAnswer(selectedIndex) {
 
   if (selectedIndex === question.correct) {
     score++;
+    scoreElement.textContent = `❤️ ${score}`;
     feedback.textContent = "Correcto ❤️";
+
+    disableAnswerButtons();
 
     setTimeout(() => {
       currentQuestion++;
@@ -136,8 +147,16 @@ function checkAnswer(selectedIndex) {
       feedback.textContent = "No hay escapatoria posible en esta pregunta.";
     }
   }
+}
 
-  scoreElement.textContent = `❤️ ${score}`;
+function disableAnswerButtons() {
+  const buttons = answersContainer.querySelectorAll("button");
+
+  buttons.forEach((button) => {
+    button.disabled = true;
+    button.style.opacity = "0.7";
+    button.style.cursor = "default";
+  });
 }
 
 function showSearchScreen() {
@@ -146,26 +165,31 @@ function showSearchScreen() {
 
   let progress = 0;
 
+  loadingBar.style.width = "0%";
+  loadingText.textContent = "Buscando sorpresa...";
+  apartmentPhoto.src = apartmentPhotos[0];
+
   const loadingMessages = [
     "Buscando sorpresa...",
     "Revisando vuelos imaginarios...",
     "Mirando algo en Grecia...",
+    "Preguntándole a Donna...",
     "Encontrando apartamento...",
     "Preparando momentazo..."
   ];
 
   const interval = setInterval(() => {
-    progress += 5;
+    progress += 4;
     loadingBar.style.width = `${progress}%`;
 
     const messageIndex = Math.min(
-      Math.floor(progress / 22),
+      Math.floor(progress / 18),
       loadingMessages.length - 1
     );
 
     loadingText.textContent = loadingMessages[messageIndex];
 
-    if (progress % 25 === 0) {
+    if (progress % 24 === 0) {
       changeApartmentPhoto();
     }
 
@@ -175,7 +199,7 @@ function showSearchScreen() {
       setTimeout(() => {
         searchScreen.classList.add("hidden");
         revealScreen.classList.remove("hidden");
-      }, 600);
+      }, 700);
     }
   }, 220);
 }
@@ -195,6 +219,7 @@ function acceptTrip() {
   finalScreen.classList.remove("hidden");
 
   loveSong.currentTime = 0;
+
   loveSong.play().catch(() => {
     console.log("El navegador ha bloqueado la reproducción automática.");
   });
@@ -203,13 +228,14 @@ function acceptTrip() {
 }
 
 function launchHearts() {
-  for (let i = 0; i < 28; i++) {
+  for (let i = 0; i < 34; i++) {
     const heart = document.createElement("div");
-    heart.textContent = "❤️";
+
+    heart.textContent = getRandomHeart();
     heart.style.position = "fixed";
     heart.style.left = `${Math.random() * 100}%`;
     heart.style.top = "100%";
-    heart.style.fontSize = `${18 + Math.random() * 22}px`;
+    heart.style.fontSize = `${18 + Math.random() * 24}px`;
     heart.style.pointerEvents = "none";
     heart.style.zIndex = "999";
     heart.style.animation = `floatHeart ${3 + Math.random() * 2}s ease forwards`;
@@ -222,6 +248,12 @@ function launchHearts() {
   }
 }
 
+function getRandomHeart() {
+  const hearts = ["❤️", "💖", "💕", "💘", "🇬🇷", "🌊"];
+
+  return hearts[Math.floor(Math.random() * hearts.length)];
+}
+
 function restartGame() {
   currentQuestion = 0;
   score = 0;
@@ -230,25 +262,13 @@ function restartGame() {
   loveSong.pause();
   loveSong.currentTime = 0;
 
-  finalScreen.classList.add("hidden");
-  startScreen.classList.remove("hidden");
-
   loadingBar.style.width = "0%";
   apartmentPhoto.src = apartmentPhotos[0];
+
+  finalScreen.classList.add("hidden");
+  revealScreen.classList.add("hidden");
+  searchScreen.classList.add("hidden");
+  quizScreen.classList.add("hidden");
+
+  startScreen.classList.remove("hidden");
 }
-
-const style = document.createElement("style");
-style.textContent = `
-  @keyframes floatHeart {
-    0% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateY(-110vh) rotate(360deg);
-      opacity: 0;
-    }
-  }
-`;
-document.head.appendChild(style);
