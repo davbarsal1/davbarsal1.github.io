@@ -63,9 +63,9 @@ const questions = [
 ];
 
 const apartmentPhotos = [
-  "assets/apartamento1.jpg",
-  "assets/apartamento2.jpg",
-  "assets/apartamento3.jpg"
+  "apartamento1.jpg",
+  "apartamento2.jpg",
+  "apartamento3.jpg"
 ];
 
 let currentQuestion = 0;
