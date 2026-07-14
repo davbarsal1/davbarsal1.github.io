@@ -72,6 +72,12 @@ button:hover {
   box-shadow: 0 14px 28px rgba(201, 24, 74, 0.3);
 }
 
+button:disabled {
+  opacity: 0.7;
+  cursor: default;
+  transform: none;
+}
+
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -168,7 +174,7 @@ button:hover {
 .final-card {
   background:
     linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)),
-    url("assets/apartamento1.jpg");
+    url("apartamento1.jpg");
   background-size: cover;
   background-position: center;
 }
