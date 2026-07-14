@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nuestro Aniversario</title>
+    <title>Feliz aniversario ❤️</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <main class="app">
     <section id="start-screen" class="card">
-        <h1>💖 Concurso de nuestro aniversario 💖</h1>
+        <div class="heart">❤️</div>
+        <h1>Concurso de nuestro aniversario</h1>
         <p>
-            Hoy tienes una misión muy importante: demostrar cuánto recuerdas
-            de nuestra historia.
+            Bienvenida al concurso más importante de tu vida.
+            Responde con sabiduría, cariño y mucho cuidado...
         </p>
         <button onclick="startGame()">Empezar</button>
     </section>
 
     <section id="quiz-screen" class="card hidden">
-        <div class="progress">
+        <div class="top-bar">
             <span id="question-counter"></span>
             <span id="score">❤️ 0</span>
         </div>
@@ -31,16 +32,59 @@
         <p id="feedback" class="feedback"></p>
     </section>
 
-    <section id="final-screen" class="card hidden">
-        <h1>🎉 Has llegado al final 🎉</h1>
-        <p id="final-message"></p>
+    <section id="search-screen" class="card hidden">
+        <h2>mmmm...</h2>
+        <p>Déjame buscar, creo que tengo algo por aquí...</p>
 
-        <div class="photo-placeholder">
-            Aquí puedes poner una foto vuestra
+        <div class="photo-frame">
+            <img id="apartment-photo" src="assets/apartamento1.jpg" alt="Apartamento en Skopelos">
         </div>
+
+        <div class="loading-container">
+            <div id="loading-bar" class="loading-bar"></div>
+        </div>
+
+        <p id="loading-text">Buscando sorpresa...</p>
+    </section>
+
+    <section id="reveal-screen" class="card hidden">
+        <h1>¡Ala! 😳</h1>
+
+        <div class="photo-frame big">
+            <img src="assets/apartamento1.jpg" alt="Apartamento en Skopelos">
+        </div>
+
+        <p class="reveal-text">
+            ¡Sí he encontrado un apartamento en línea de playa en Skopelos, Grecia!
+        </p>
+
+        <p>
+            La fecha sería del <strong>16 de julio al 21 de julio del año que viene</strong>.
+        </p>
+
+        <h2>¿Pasamos nuestro aniversario allí?</h2>
+
+        <div class="answers">
+            <button onclick="acceptTrip()">Sí ❤️</button>
+        </div>
+    </section>
+
+    <section id="final-screen" class="card hidden final-card">
+        <div class="heart big-heart">❤️</div>
+        <h1>Feliz aniversario, amor</h1>
+        <p>
+            Me hace muchísima ilusión vivir esto contigo.
+            Gracias por ser mi persona favorita, mi plan favorito y mi casa favorita.
+        </p>
+        <p>
+            Nos vamos a Skopelos.
+            Y sí, esto cuenta como regalo oficial.
+        </p>
 
         <button onclick="restartGame()">Volver a jugar</button>
     </section>
+
+    <audio id="love-song" src="assets/cancion.mp3"></audio>
 </main>
 
 <script src="script.js"></script>

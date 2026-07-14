@@ -11,45 +11,71 @@ const questions = [
     hint: "Piénsalo bien... fue un plan muy nuestro."
   },
   {
-    question: "¿Cuál de estos planes me gusta más contigo?",
+    question: "¿Cuál es mi comida favorita?",
     answers: [
-      "Ir de compras",
-      "Una noche tranquila juntos",
-      "Salir de fiesta hasta tarde",
-      "Ir a correr"
+      "Sushi",
+      "Hojaldre de queso",
+      "Hamburguesa",
+      "Lentejas"
+    ],
+    correct: 0,
+    hint: "Susuki, Fujitsu, Doraemon... dale una vuelta."
+  },
+  {
+    question: "De los tres bancos que hay en San Bernardo, ¿en cuál nos sentamos en nuestra primera cita?",
+    answers: [
+      "El primero",
+      "El segundo",
+      "El tercero"
     ],
     correct: 1,
-    hint: "No hace falta mucho para que un plan sea perfecto."
+    hint: "1 + 1"
   },
   {
-    question: "¿Qué es lo que más me gusta de ti?",
+    question: "¿Quién es más guapo de nosotros?",
     answers: [
-      "Tu forma de mirarme",
-      "Tu risa",
-      "Cómo me cuidas",
-      "Todas las anteriores"
+      "Tú",
+      "Yo",
+      "Los dosh somosh guaposh"
     ],
-    correct: 3,
-    hint: "Esta era fácil, tramposilla."
+    correct: 2,
+    hint: "¿En serio has dicho uno de nosotros?"
   },
   {
-    question: "¿Qué premio desbloqueas si ganas?",
+    question: "Di un destino al que te gustaría ir",
     answers: [
-      "Un abrazo",
-      "Una cena",
-      "Una sorpresa",
-      "Todo lo anterior"
+      "Londres - Harry Potter tour",
+      "Skopelos - Mamma Mia tour",
+      "Asturias y Galicia - Ovejas tour",
+      "París - Disney tour"
     ],
-    correct: 3,
-    hint: "Conmigo nunca hay solo un premio."
+    correct: 1,
+    hint: "¿Traicionas a Donna? Qué feo."
+  },
+  {
+    question: "¿Has dicho Skopelos?",
+    answers: [
+      "Sí"
+    ],
+    correct: 0,
+    hint: ""
   }
+];
+
+const apartmentPhotos = [
+  "assets/apartamento1.jpg",
+  "assets/apartamento2.jpg",
+  "assets/apartamento3.jpg"
 ];
 
 let currentQuestion = 0;
 let score = 0;
+let photoIndex = 0;
 
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
+const searchScreen = document.getElementById("search-screen");
+const revealScreen = document.getElementById("reveal-screen");
 const finalScreen = document.getElementById("final-screen");
 
 const questionCounter = document.getElementById("question-counter");
@@ -57,7 +83,11 @@ const scoreElement = document.getElementById("score");
 const questionTitle = document.getElementById("question-title");
 const answersContainer = document.getElementById("answers");
 const feedback = document.getElementById("feedback");
-const finalMessage = document.getElementById("final-message");
+
+const apartmentPhoto = document.getElementById("apartment-photo");
+const loadingBar = document.getElementById("loading-bar");
+const loadingText = document.getElementById("loading-text");
+const loveSong = document.getElementById("love-song");
 
 function startGame() {
   startScreen.classList.add("hidden");
@@ -68,7 +98,7 @@ function startGame() {
 function showQuestion() {
   const question = questions[currentQuestion];
 
-  questionCounter.textContent = `Pregunta ${currentQuestion + 1}/${questions.length}`;
+  questionCounter.textContent = `Pregunta ${currentQuestion + 1}/${questions.length + 1}`;
   scoreElement.textContent = `❤️ ${score}`;
   questionTitle.textContent = question.question;
   feedback.textContent = "";
@@ -88,8 +118,7 @@ function checkAnswer(selectedIndex) {
 
   if (selectedIndex === question.correct) {
     score++;
-    feedback.textContent = "Correcto 💖";
-    scoreElement.textContent = `❤️ ${score}`;
+    feedback.textContent = "Correcto ❤️";
 
     setTimeout(() => {
       currentQuestion++;
@@ -97,27 +126,129 @@ function checkAnswer(selectedIndex) {
       if (currentQuestion < questions.length) {
         showQuestion();
       } else {
-        showFinal();
+        showSearchScreen();
       }
     }, 800);
   } else {
-    feedback.textContent = `Casi... pista: ${question.hint}`;
+    if (question.hint) {
+      feedback.textContent = `Casi... pista: ${question.hint}`;
+    } else {
+      feedback.textContent = "No hay escapatoria posible en esta pregunta.";
+    }
   }
+
+  scoreElement.textContent = `❤️ ${score}`;
 }
 
-function showFinal() {
+function showSearchScreen() {
   quizScreen.classList.add("hidden");
+  searchScreen.classList.remove("hidden");
+
+  let progress = 0;
+
+  const loadingMessages = [
+    "Buscando sorpresa...",
+    "Revisando vuelos imaginarios...",
+    "Mirando algo en Grecia...",
+    "Encontrando apartamento...",
+    "Preparando momentazo..."
+  ];
+
+  const interval = setInterval(() => {
+    progress += 5;
+    loadingBar.style.width = `${progress}%`;
+
+    const messageIndex = Math.min(
+      Math.floor(progress / 22),
+      loadingMessages.length - 1
+    );
+
+    loadingText.textContent = loadingMessages[messageIndex];
+
+    if (progress % 25 === 0) {
+      changeApartmentPhoto();
+    }
+
+    if (progress >= 100) {
+      clearInterval(interval);
+
+      setTimeout(() => {
+        searchScreen.classList.add("hidden");
+        revealScreen.classList.remove("hidden");
+      }, 600);
+    }
+  }, 220);
+}
+
+function changeApartmentPhoto() {
+  photoIndex++;
+
+  if (photoIndex >= apartmentPhotos.length) {
+    photoIndex = 0;
+  }
+
+  apartmentPhoto.src = apartmentPhotos[photoIndex];
+}
+
+function acceptTrip() {
+  revealScreen.classList.add("hidden");
   finalScreen.classList.remove("hidden");
 
-  finalMessage.textContent =
-    `Has conseguido ${score} de ${questions.length} corazones.
-    Da igual la puntuación, porque mi parte favorita de esta historia eres tú.
-    Feliz aniversario, mi amor ❤️`;
+  loveSong.currentTime = 0;
+  loveSong.play().catch(() => {
+    console.log("El navegador ha bloqueado la reproducción automática.");
+  });
+
+  launchHearts();
+}
+
+function launchHearts() {
+  for (let i = 0; i < 28; i++) {
+    const heart = document.createElement("div");
+    heart.textContent = "❤️";
+    heart.style.position = "fixed";
+    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.top = "100%";
+    heart.style.fontSize = `${18 + Math.random() * 22}px`;
+    heart.style.pointerEvents = "none";
+    heart.style.zIndex = "999";
+    heart.style.animation = `floatHeart ${3 + Math.random() * 2}s ease forwards`;
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5200);
+  }
 }
 
 function restartGame() {
   currentQuestion = 0;
   score = 0;
+  photoIndex = 0;
+
+  loveSong.pause();
+  loveSong.currentTime = 0;
+
   finalScreen.classList.add("hidden");
   startScreen.classList.remove("hidden");
+
+  loadingBar.style.width = "0%";
+  apartmentPhoto.src = apartmentPhotos[0];
 }
+
+const style = document.createElement("style");
+style.textContent = `
+  @keyframes floatHeart {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(-110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
