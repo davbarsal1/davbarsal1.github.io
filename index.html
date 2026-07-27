@@ -4,114 +4,74 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Feliz aniversario ❤️</title>
+  <title>Cuenta atrás para Skopelos 🌊</title>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <main class="app">
+  <main class="countdown-page">
 
-    <section id="start-screen" class="card">
-      <div class="heart">❤️</div>
+    <section class="hero-card">
+      <p class="eyebrow">Nuestro próximo aniversario</p>
 
-      <h1>Concurso de nuestro aniversario</h1>
+      <h1>Nos vamos a Skopelos</h1>
 
-      <p>
-        Bienvenida al concurso más importante de tu vida.
-        Responde con sabiduría, cariño y mucho cuidado...
+      <p class="subtitle">
+        Cuenta atrás para perdernos unos días en Grecia, en línea de playa,
+        celebrando nuestro aniversario como se merece.
       </p>
 
-      <button onclick="startGame()">Empezar</button>
-    </section>
-
-    <section id="quiz-screen" class="card hidden">
-      <div class="top-bar">
-        <span id="question-counter"></span>
-        <span id="score">❤️ 0</span>
+      <div class="date-pill">
+        Del <strong>16 de julio</strong> al <strong>21 de julio de 2027</strong>
       </div>
 
-      <h2 id="question-title"></h2>
+      <section class="countdown" aria-label="Cuenta atrás">
+        <div class="time-box">
+          <span id="days">00</span>
+          <small>Días</small>
+        </div>
 
-      <div id="answers" class="answers"></div>
+        <div class="time-box">
+          <span id="hours">00</span>
+          <small>Horas</small>
+        </div>
 
-      <p id="feedback" class="feedback"></p>
+        <div class="time-box">
+          <span id="minutes">00</span>
+          <small>Minutos</small>
+        </div>
+
+        <div class="time-box">
+          <span id="seconds">00</span>
+          <small>Segundos</small>
+        </div>
+      </section>
+
+      <p id="message" class="message">
+        Cada día que pasa estamos un poquito más cerca de nuestro viaje 🌊🇬🇷
+      </p>
+
+      <button id="show-reservation-btn" type="button">
+        Ver la reserva ❤️
+      </button>
     </section>
 
-    <section id="search-screen" class="card hidden">
-      <div class="heart">🔎</div>
+    <section id="reservation-modal" class="modal hidden">
+      <div class="modal-content">
+        <button id="close-modal-btn" class="close-btn" type="button">×</button>
 
-      <h2>Pregunta 7</h2>
+        <h2>Reserva realizada ✅</h2>
 
-      <p>
-        Mmmm... déjame buscar, creo que tengo algo por aquí...
-      </p>
+        <p>
+          Ahora sí que sí: Skopelos nos espera.
+        </p>
 
-      <div class="photo-frame">
-        <img id="apartment-photo" src="apartamento1.jpg" alt="Apartamento en Skopelos">
+        <div class="reservation-frame">
+          <img src="reserva.png" alt="Reserva realizada para Skopelos">
+        </div>
       </div>
-
-      <div class="loading-container">
-        <div id="loading-bar" class="loading-bar"></div>
-      </div>
-
-      <p id="loading-text">Buscando sorpresa...</p>
     </section>
-
-  <section id="reveal-screen" class="card hidden">
-    <h1>¡Ala! 😳</h1>
-  
-    <p class="reveal-text">
-      ¡Sí he encontrado un apartamento en línea de playa en Skopelos, Grecia!
-    </p>
-  
-    <div class="apartment-gallery">
-      <img src="apartamento1.jpg" alt="Apartamento en Skopelos 1">
-      <img src="apartamento2.jpg" alt="Apartamento en Skopelos 2">
-      <img src="apartamento3.jpg" alt="Apartamento en Skopelos 3">
-    </div>
-  
-    <p>
-      La fecha sería del
-      <strong>16 de julio al 21 de julio del año que viene</strong>.
-    </p>
-  
-    <h2>¿Pasamos nuestro aniversario allí?</h2>
-  
-    <div class="answers">
-      <button onclick="acceptTrip()">Sí ❤️</button>
-    </div>
-</section>
-
-    <section id="final-screen" class="card hidden final-card">
-      <div class="heart big-heart">❤️</div>
-
-      <h1>Feliz aniversario, amor</h1>
-
-      <p>
-        Me hace muchísima ilusión vivir esto contigo.
-        Gracias por ser mi persona favorita, mi plan favorito y mi casa favorita.
-      </p>
-
-      <div class="reservation-frame">
-        <img src='reserva.png' alt="Reserva realizada en Skopelos">
-      </div>
-
-      <h2>Reserva realizada ✅</h2>
-
-      <p>
-        Nos vamos a Skopelos.
-        Del <strong>16 de julio al 21 de julio</strong>.
-      </p>
-
-      <p>
-        No se me ocurre mejor forma de celebrar nuestro aniversario que viviendo esta aventura contigo.
-      </p>
-
-      <button onclick="restartGame()">Volver a jugar</button>
-    </section>
-
-    <audio id="love-song" src="cancion.mp3"></audio>
 
   </main>
 
